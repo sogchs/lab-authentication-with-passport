@@ -1,0 +1,18 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background-color: #F1F1F1;
+}
+
+a {
+  color: #00B7FF;
+}
+
+.list-group .badge {
+  cursor: pointer;
+  border-style: none;
+}
+
+button.badge {
+  box-shadow: none;
+}

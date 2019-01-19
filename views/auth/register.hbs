@@ -1,0 +1,32 @@
+
+<div class="row">
+    <div class="col-4 mx-auto text-center">
+        <h3>Register</h3>
+    </div>
+</div>
+<div class="row">
+    <form action="/register" method="POST" class="col-4 mx-auto">
+        <div class="form-group">
+            <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fas fa-envelope"></i></div>
+                </div>
+                <input type="email" name="email" class="form-control {{#if errors.email }} is-invalid {{/if}}" placeholder="Email" value="{{ user.email }}">
+                {{#if errors.email }} <div class="invalid-feedback">{{ errors.email }}</div> {{/if}}
+            </div>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text"><i class="fas fa-lock"></i></div>
+                </div>
+                <input type="password" name="password" class="form-control {{#if errors.password }} is-invalid {{/if}}" placeholder="Password">
+                {{#if errors.password }} <div class="invalid-feedback">{{ errors.password }}</div> {{/if}}
+                {{#if errors.global }} <div class="invalid-feedback">{{ errors.global }}</div> {{/if}}
+            </div>
+        </div>
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary btn-block">Register</button>
+        </div>
+        <hr>
+        <p>Already registered? <a href="/login">Do login</a>.</p>
+    </form>
+</div>
