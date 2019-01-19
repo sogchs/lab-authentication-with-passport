@@ -17,7 +17,7 @@ Overall, the goal is to understand how authentication and authorization work in 
 
 ```bash
 git add .
-git commit -m "done"
+git commit -m "feat: iteration 1"
 git push origin master
 ```
 - Create Pull Request so your TAs can check up your work.
@@ -59,6 +59,10 @@ Ensure user authentication at profile and users routes and redirect to login if 
 ## Iteration #4: Render required information at the navbar
 
 If the user is authenticated you must show his email & logout action at the navigation bar, otherwise show only register and login actions.
+
+## Iteration #5: Delete user
+
+Implements `usersController.delete` action, about the router login and template form is all ready done, but check it implementation! 
 
 ## Bonus
 
