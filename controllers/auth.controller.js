@@ -78,7 +78,9 @@ module.exports.doRegister = (req, res, next) => {
 }
 
 module.exports.logout = (req, res, next) => {
-  // TODO: destroy session
+  req.logout();
+  req.session = null;
+  res.redirect('/login');
 }
 
 module.exports.profile = (req, res, next) => {

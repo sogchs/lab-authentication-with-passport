@@ -31,6 +31,7 @@ app.use(session({
   secret: process.env.SESSION_SECRET || 'Dev secret',
   resave: true,
   saveUninitialized: true,
+  unset: 'destroy',
   cookie: {
     secure: process.env.SESSION_SECURE || false,
     httpOnly: true,
@@ -43,6 +44,11 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use((req, res, next) => {
+  res.locals.session = req.user;
+  next();
+})
 
 app.use('/', authRouter);
 app.use('/', usersRouter);
