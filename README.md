@@ -22,36 +22,44 @@ git push origin master
 ```
 - Create Pull Request so your TAs can check up your work.
 
-## Introductions
+## Dependencies
 
-The starter-code provides the basic layout and organization for this assignment.
+- mongoose: mongodb interaction service
+- bcrypt: hashing algorithm
+- express-session: session cookie
+- connect-mongo: store sessions at mongodb
+- passport: base authentication middleware
+- passport-local: email & password strategy
 
-## Iteration #1: The Signup Feature
 
-The repo you cloned comes with a `User` model and a `router` file already made for you. It also has all the views you need, although some are empty :smile:
+## Iteration #1: Register user
 
-Add a new route to your `passportRouter.js` file with the path `/signup` and point it to your `views/passport/signup.hbs` file.
+The repo you cloned comes with a `User` model, `router` and `controller` files already made for you. It also has all the views you need, although some are empty :smile:
 
-Now, in that .hbs file, add a form that makes a POST request to `/signup`, with a field for `username` and `password`.
+You need implements the template validations and save the password hashed at database.
 
-Finally, add a POST route to your `passportRouter.js` to receive the data from the signup form and create a new user with the data.
-
-:::info
-Make sure you install **bcrypt** (or **bcryptjs**) and **passport** npm packages and require it in `passportRouter.js`.
-:::
+> Check with compass or your terminal if the password is saved hashed properly at the database.
 
 ## Iteration #2: The Login Feature
 
-In order to add the login feature, let's add one GET route to our router to display the login page. `views/passport/login.hbs` is empty so let's fill it with some login form. Once we have the form, let's add another route to the router to receive that data and log the user in. The form should make a POST request to `/login`. 
+- Implement passport configuration:
+  - serializeUser: from user to cookie
+  - deserializeUser: from cookie to user
+  - auth-local: email/password strategy
+- Handle auth-local strategy at authController.login method, authenticate user and redirect to user profile.
 
-**But Wait**
+## Iteration #3: The Logout Feature
 
-In order to do that, we need to configure Sessions and initialize a session with passport in our `app.js` file. We also need to add the `passport.serializeUser` functions as well as defining the Passport Local Strategy.
+Implement user logout at authController.logout method
 
-## Private Page
+## Iteration #3: Protect access
 
-In the repo you forked, there is a file called `private.hbs`. This page is referenced in the `passportRouter.js` with the path `/private-page`. We use the `ensureLogin.ensureLoggedIn()` function to make sure that the user is logged in before viewing this page.
+Ensure user authentication at profile and users routes and redirect to login if necessary.
 
-If everything worked correctly, the user should be able to sign up, login, and then visit the page, where they will receive a personalized greeting.
+## Iteration #4: Render required information at the navbar
 
-Happy coding! :heart:
+If the user is authenticated you must show his email & logout action at the navigation bar, otherwise show only register and login actions.
+
+## Bonus
+
+If the user is authenticated and tries to navigate to /login or /register we must redirect the user to his profile directly. 
