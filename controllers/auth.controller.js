@@ -1,5 +1,6 @@
 const User = require('../models/user.model');
 const mongoose = require('mongoose');
+const passport = require('passport');
 
 module.exports.login = (req, res, next) => {
   res.render('auth/login');
@@ -7,6 +8,33 @@ module.exports.login = (req, res, next) => {
 
 module.exports.doLogin = (req, res, next) => {
   // TODO: authenticate user
+  const email = req.body.email;
+  const password = req.body.password;
+  if (!email || !password) {
+    res.render('auth/login', {
+      user: { username: username },
+      error: {
+        email: email ? '' : 'email is required',
+        password: password ? '' : 'password is required'
+      }
+    });
+  } else {
+    passport.authenticate('local-auth', (error, user, errors) => {
+      if (error) {
+        next(error);
+      } else if (!user) {
+        res.render('auth/login', { errors: errors });
+      } else {
+        req.login(user, (error) => {
+          if (error) {
+            next(error);
+          } else {
+            res.redirect('/profile');
+          }
+        });
+      }
+    })(req, res, next);
+  }
 }
 
 module.exports.register = (req, res, next) => {
