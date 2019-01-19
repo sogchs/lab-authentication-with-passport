@@ -26,16 +26,7 @@ schema.pre('save', function (next) {
   const user = this;
 
   if (user.isModified('password')) {
-    // TODO: hash password
-    bcrypt.genSalt(WORK_FACTOR)
-      .then(salt => {
-        return bcrypt.hash(user.password, salt)
-          .then(hash => {
-            user.password = hash;
-            next();
-          });
-      })
-      .catch(error => next(error));
+    // TODO: hash password & save
   } else {
     next();
   }
