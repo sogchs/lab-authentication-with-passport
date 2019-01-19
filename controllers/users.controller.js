@@ -16,5 +16,6 @@ module.exports.list = (req, res, next) => {
 }
 
 module.exports.delete = (req, res, next) => {
-  // TODO: delete user (needs logout if its the current user)
+  User.findByIdAndDelete(req.params.id); //puede ser que tenga que cambiar lo que se requiera aqui
+  .then (()=> res.redirect('/login'))
 }

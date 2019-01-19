@@ -2,10 +2,7 @@ const User = require('../models/user.model');
 const LocalStrategy = require('passport-local').Strategy;
 
 module.exports.setup = (passport) => {
-
-    /**
-     * Write user id at the session cookie
-     */
+    
     passport.serializeUser((user, next) => {});
 
     /**
