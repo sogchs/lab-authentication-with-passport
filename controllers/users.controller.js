@@ -1,5 +1,7 @@
 const createError = require('http-errors');
 const User = require('../models/user.model');
+const mongoose = require('mongoose');
+
 
 module.exports.profile = (req, res, next) => {
   res.render('users/profile');
@@ -16,6 +18,8 @@ module.exports.list = (req, res, next) => {
 }
 
 module.exports.delete = (req, res, next) => {
-  User.findByIdAndDelete(req.params.id); //puede ser que tenga que cambiar lo que se requiera aqui
-  .then (()=> res.redirect('/login'))
+  User.findByIdAndDelete(req.params.id) 
+  //aqui necesito una condicion por la que si me borro al usuario con el que me logeo haga redirect a index
+  .then(user => res.redirect('/user/list'))
+  .catch(error => next(error));
 }

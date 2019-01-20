@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
-  <a class="navbar-brand" href="#">MUSIC STORE</a>
+  <a class="navbar-brand font-weight-bold text-danger" href="#">MUSIC STORE</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
@@ -8,20 +8,23 @@
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="/profile">Profile <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="/users">List Users <span class="sr-only">(current)</span></a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/users">Users</a>
+        <a class="nav-link" href="#">History</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Bills</a>
       </li>
       
     </ul>
 
     <ul class="navbar-nav my-2 my-lg-0">
       <li class="nav-item">
-        <a class="nav-link" href="/register">Register</a>
+        <p class="nav-link disabled"> {{ session.email }}</p>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/login">Login</a>
+        <a class="nav-link" href="/logout">Logout</a> 
       </li>
     </ul>
   </div>

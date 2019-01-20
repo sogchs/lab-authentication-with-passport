@@ -12,6 +12,7 @@ require('./config/db.config');
 require('./config/hbs.config');
 require('./config/passport.config').setup(passport);
 
+
 const authRouter = require('./routes/auth.routes');
 const usersRouter = require('./routes/users.routes');
 
@@ -43,6 +44,11 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.use((req, res, next) => { //sin esto no es capaz de ver que has iniciado la sesion y no te muestra los campos del user en session
+  res.locals.session = req.user;
+  next();
+})
 
 app.use('/', authRouter);
 app.use('/', usersRouter);

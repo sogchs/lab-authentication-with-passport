@@ -1,10 +1,10 @@
-const createError = require('http-errors')
+const createError = require('http-errors');
 
 module.exports.isAuthenticated = (req, res, next) => {
-  if(req.isAuthenticated()){
+  if (req.isAuthenticated()) {
     next();
-  } else{
-    res.redirec('/login')
+  } else {
+    res.redirect('/login');
   }
 }
 

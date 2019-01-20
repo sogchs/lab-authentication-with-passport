@@ -12,10 +12,15 @@
   <body>
 
     <div class="container">
-      {{> navbar }}
+      {{#if session.email }}
+      {{> navbar2 }}
+      {{else}}
+      {{> navbar1 }}
+      {{/if}}
+      
       <div class="row">
         <div class="col-12">
-          {{{ body }}}
+          {{{body}}}
         </div>
       </div>
     </div>

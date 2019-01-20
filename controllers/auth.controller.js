@@ -1,40 +1,46 @@
 const User = require('../models/user.model');
 const mongoose = require('mongoose');
+const passport = require('passport');
+
+module.exports.index = (req, res, next) => {
+  res.render('auth/index');
+}
 
 module.exports.login = (req, res, next) => {
   res.render('auth/login');
 }
 
 module.exports.doLogin = (req, res, next) => {
-  funcion renderWithErrors(user, errors){
-    res.render('auth/login', {
-      user: user,
-      errors: errors
-    });
-  }
   
-  const { email, password } = req.body;
-  if (!email || !password){
-    renderWithErrors(req.body {
-      email: email ? undefined : 'Email is required please',
-      password: password ? undefined : 'Password is required please'
-    });
-  } else{
-      passport.authenticate('local-auth', (error, user, validations) =>{
-        if(error){
-          next(error);
-        } else if(!user){
-          renderWithErrors(req.body, validations)
-        } else {
-          req.login(user, (error)=>{
-            if(error){
-              next(error);
+  function renderWithErrors(user, errors) {
+        res.render('auth/login', {
+            user: user,
+            errors: errors
+        });
+    }
+  
+  const { email, password } =  req.body;
+    if (!email || !password) {
+        renderWithErrors(req.body, {
+            email: email ? undefined : 'Email is required',
+            password: password ? undefined : 'Password is required',
+        });
+    } else {
+        passport.authenticate('local-auth', (error, user, validations) => {
+            if (error) {
+                next(error);
+            } else if (!user) {
+                renderWithErrors(req.body, validations);
             } else {
-              res.redirect('/profile');
+                req.login(user, (error) => {
+                    if (error) {
+                        next(error);
+                    } else {
+                        res.redirect('/profile');
+                    }
+                });
             }
-          });
-        }
-      })(req,res,next);
+        })(req, res, next);
   }
 }
 
@@ -80,7 +86,7 @@ module.exports.doRegister = (req, res, next) => {
 
 module.exports.logout = (req, res, next) => {
   req.logout();
-  req.redirect('/login');
+  res.redirect('/index');
 }
 
 module.exports.profile = (req, res, next) => {

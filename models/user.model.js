@@ -22,23 +22,24 @@ schema.methods.checkPassword = function (password) {
   return bcrypt.compare(password, this.password);
 }
 
-schema.pre('save', function (next) {
-  const user = this;
+schema.pre('save', function(next) {
+    const user = this;
 
-  if (user.isModified('password')) {
-    bcrypt.genSalt(WORK_FACTOR);
-      .then (salt => {
-        return bcrypt.hash(user.password, salt)
-          .then(hash => {
-            user.password = hash;
-            next();
-          });
-      })
-      .catch(error => next(error));
-  } else {
-    next();
-  }
+    if (user.isModified('password')) {
+        bcrypt.genSalt(WORK_FACTOR)
+            .then(salt => {
+                return bcrypt.hash(user.password, salt)
+                    .then(hash => {
+                        user.password = hash;
+                        next();
+                    });
+            })
+            .catch(error => next(error));
+    } else {
+        next();
+    }
 });
 
 const User = mongoose.model('User', schema);
 module.exports = User;
+
