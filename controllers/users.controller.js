@@ -20,6 +20,15 @@ module.exports.list = (req, res, next) => {
 module.exports.delete = (req, res, next) => {
   User.findByIdAndDelete(req.params.id) 
   //aqui necesito una condicion por la que si me borro al usuario con el que me logeo haga redirect a index
-  .then(user => res.redirect('/user/list'))
+  .then(user => {
+    if(!user){
+      next(createError(404));
+    } else if(req.user.id === user.id){
+      res.redirect('/logout');
+    } else {
+      res.redirect('users/list')
+    }
+})
+  
   .catch(error => next(error));
 }
